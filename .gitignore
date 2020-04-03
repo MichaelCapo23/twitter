@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/backend/mysql_creds.js
+
+/src/serviceWorker.js
