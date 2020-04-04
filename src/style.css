@@ -56,6 +56,21 @@ body {
     position: relative;
 }
 
+.input-container-signup {
+    margin: auto;
+    min-height: 52px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    width: 96%;
+    background-color: #1A2734;
+    border: none;
+    border-bottom: 2px solid rgba(128, 144, 158);
+    border-radius: 2px;
+    -webkit-margin-collapse: separate;
+    position: relative;
+}
+
 .input-styles {
     height: 100%;
     width: 100%;
@@ -112,4 +127,164 @@ body {
     color: #2795E0;
     font-size: 15px;
     cursor: pointer;
+}
+
+.signup-modal-overall-container {
+    z-index: 6;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(57, 66, 76, .5);
+    top: 0;
+    color: rgb(15, 15, 15);
+    left: 0 !important;
+    overflow-y: hidden;
+    position: fixed;
+}
+
+.signup-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -81%);
+    min-height: 400px;
+    background-color: #15202C;
+    width: 600px;
+    margin: auto;
+    text-align: center;
+    border-radius: 14px;
+}
+
+.signup-header-container {
+    height: 30px;
+    padding: 12px 10px;
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.twitter-logo2 {
+    height: 28px;
+    color: rgb(255, 255, 255);
+    fill: currentcolor;
+    width: 100%;
+}
+
+.next-btn {
+    min-width: calc(48.3px);
+    height: 30px;
+    border-radius: 100px;
+    font-weight: 700;
+    color: #FFF;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 15px;
+    background-color: var(--twiter-blue);
+    border: none;
+    padding: 0 18px;
+}
+
+.signup-modal-body-container {
+    padding: 0 30px;
+}
+
+.create-text {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #FFF;
+    font-size: 23px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.hide {
+    display: none !important;
+}
+
+.error-msg {
+    color: red;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.email-text {
+    margin-top: 6px;
+    color: #2695DF;
+    text-align: left;
+    margin-bottom: 29px;
+    font-size: 15px;
+}
+
+.date-text {
+    margin-top: 20px;
+    color: #FFF;
+    text-align: left;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.public-text {
+    color: #8594A2;
+    text-align: left;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.select-styles {
+    width: 100%;
+    background: transparent;
+    border: none;
+    top: 23px;
+    position: relative;
+    height: 28px;
+}
+
+.select-container {
+    margin: auto;
+    min-height: 52px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    width: 33%;
+    display: inline-block;
+    background-color: #1A2734;
+    border: none;
+    border-bottom: 2px solid rgba(128, 144, 158);
+    border-radius: 2px;
+    -webkit-margin-collapse: separate;
+    position: relative;
+}
+
+.year.select-container {
+    width: calc(55% / 2);
+}
+
+.month.select-container {
+    width: 45%;
+}
+
+.day.select-container {
+    width: calc(55% / 2);
+}
+
+.year.select-styles {
+    color: #FFF;
+    display: inline-block;
+    width: 33%;
+}
+
+.month.select-styles {
+    color: #FFF;
+    display: inline-block;
+    width: 33%;
+}
+
+.day.select-styles {
+    color: #FFF;
+    display: inline-block;
+    width: 33%;
+}
+
+.select-styles:focus {
+    outline: none;
 }
