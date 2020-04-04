@@ -1,0 +1,115 @@
+:root {
+    --family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+    --twiter-blue: #2AA0F2;
+}
+
+body {
+    margin: 0;
+    font-family: var(--family) !important;
+}
+
+.login-container {
+    background-color: #15202B;
+    height: auto;
+    min-height: 100vh;
+}
+.login-gutter {
+    max-width: 612px;
+    height: auto;
+    padding: 20px 5px;
+    margin: auto;
+    text-align: center;
+}
+
+.twitter-logo {
+    height: 39px;
+    color: rgb(255, 255, 255);
+    fill: currentcolor;
+    width: 100%;
+}
+
+.login-header {
+    height: 39px;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 1.3125;
+    font-family: var(--family);
+    margin-top: 27px;
+    font-size: 23px;
+    font-weight: bolder;
+    padding-bottom: 2px;
+}
+
+.input-container {
+    margin: auto;
+    min-height: 52px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    width: 85%;
+    background-color: #1A2734;
+    border: none;
+    border-bottom: 2px solid rgba(128, 144, 158);
+    border-radius: 2px;
+    -webkit-margin-collapse: separate;
+    position: relative;
+}
+
+.input-styles {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: none !important;
+    color: #FFF;
+    font-size: 18px;
+    padding-top: 20px;
+    height: 31px;
+}
+
+.input-styles:focus {
+    outline: none !important;
+}
+
+.label-styles {
+    font-size: 15px;
+    color: #80909E;
+    font-family: var(--family);
+    position: absolute;
+    top: 5px;
+}
+
+.input-styles:focus ~ label.label-styles {
+    color: var(--twiter-blue);
+}
+
+.login-button-container {
+    margin:auto;
+    width: 90%;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.login-button {
+    width: 100%;
+    height: 100%;
+    background-color: var(--twiter-blue);
+    text-align: center;
+    border-radius: 100px;
+    border: none !important;
+    color: #FFF;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.forgot-container {
+    color:#606F7C;
+    text-align: center;
+}
+
+.forgot-styles {
+    color: #2795E0;
+    font-size: 15px;
+    cursor: pointer;
+}
