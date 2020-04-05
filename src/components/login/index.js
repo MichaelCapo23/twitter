@@ -4,7 +4,7 @@ import SignupModal from './signupModal';
 class Login extends Component {
 
 	state = {
-
+		loginDisabled: true,
 	};
 
 	colorChange = (e, flag) => {
@@ -20,6 +20,21 @@ class Login extends Component {
 	openSignupModal = (e) => {
 		document.getElementById('signupModal').classList.remove('hide');
 	}
+
+	checkInputs = (e) => {
+		let username = document.getElementById('username-input');
+		let password = document.getElementById('password-input');
+
+		if(username.value !== '' && password.value !== '') {
+			this.setState({
+				loginDisabled: false,
+			})
+		} else {
+			this.setState({
+				loginDisabled: true,
+			})
+		}
+    }
 
 	render() {
 		return (
@@ -38,18 +53,18 @@ class Login extends Component {
 
 						<div className="input-container">
 							<label className="label-styles" htmlFor="username">Phone, email, or username</label>
-							<input autoComplete="off" onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="username" className="input-styles" type="text" target="username"/>
+							<input onChange={this.checkInputs} autoComplete="off" onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="username" className="input-styles" target="username" id="username-input"/>
 							<div className="error-msg hide"></div>
 						</div>
 						
 						<div className="input-container">
 							<label className="label-styles" htmlFor="password">Password</label>
-							<input onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="password" className="input-styles" type="password" target="password"/>
+							<input onChange={this.checkInputs} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="password" className="input-styles" type="password" target="password" id="password-input"/>
 							<div className="error-msg hide"></div>
 						</div>
 
 						<div className="login-button-container">
-							<button className="login-button">Log in</button>
+							<button disabled={this.state.loginDisabled} className="login-button">Log in</button>
 						</div>
 
 						<div className="forgot-container">

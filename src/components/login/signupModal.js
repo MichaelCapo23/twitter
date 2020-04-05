@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
-import Select from 'react-select'; 
-// import {tagsOptionsMonth, tagsOptionsDay, tagsOptionsYear} from '../jscript';
-import {tagsOptionsMonth, tagsOptionsDay, tagsOptionsYear} from '../../jscript';
 
 class SignupModal extends Component {
 
     state = {
-        selectedOption: [],
+        nextDisabled: true,
     }
 
     closeModal = (e) => {
@@ -24,11 +20,30 @@ class SignupModal extends Component {
 			e.target.previousSibling.style.color = 'rgb(128, 144, 158)';
 			e.target.parentElement.style.borderBottom = '2px solid rgb(128, 144, 158)';
 		}
-	}
+    }
+    
+    checkInputs2 = (e) => {
+        let month = document.getElementById('month-select');
+        let day = document.getElementById('day-select');
+        let year = document.getElementById('year-select');
+        let name = document.getElementById('name-input');
+        let phone = document.getElementById('phone-input');
+
+        debugger;
+        if(month.value !== '' && day.value !== '' && year.value !== '' && name.value !== '' && phone.value !== '') {
+            this.setState({
+				nextDisabled: false,
+			})
+        } else {
+            this.setState({
+				nextDisabled: true,
+			})
+        }
+    }
 
     render() {
         return (
-            <div onClick={this.closeModal} id="signupModal" className="signup-modal-overall-container">
+            <div onClick={this.closeModal} id="signupModal" className="signup-modal-overall-container hide">
                 <div className="signup-modal-content">
                     <div className="signup-header-container">
                         <div>
@@ -38,20 +53,20 @@ class SignupModal extends Component {
                                 </g>
                             </svg>
                         </div>
-                        <button className="next-btn">Next</button>
+                        <button disabled={this.state.nextDisabled} className="next-btn">Next</button>
                     </div>
                     <div className="signup-modal-body-container">
                         <div className="create-text">Create your account</div>
 
                         <div className="input-container-signup">
 							<label className="label-styles" htmlFor="name">Name</label>
-							<input onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles" type="text" target="name"/>
+							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles" target="name" id="name-input"/>
                             <div className="error-msg hide"></div>
 						</div>
 
                         <div className="input-container-signup">
-							<label className="label-styles" htmlFor="name">Name</label>
-							<input onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles" type="text" target="name"/>
+							<label className="label-styles" htmlFor="phone">phone</label>
+							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles" target="phone" id="phone-input"/>
                             <div className="error-msg hide"></div>
 						</div>
 
@@ -62,7 +77,8 @@ class SignupModal extends Component {
                         <div className="dob-container">
                             <div className="month select-container">
                                 <label className="label-styles" htmlFor="Month">Month</label>
-                                <select className="month select-styles" name="Month" id="Month">
+                                <select onChange={this.checkInputs2} className="month select-styles" name="Month" id="month-select">
+                                    <option value=""></option>
                                     <option value="1">January</option>
                                     <option value="2">February</option>
                                     <option value="3">March</option>
@@ -81,45 +97,47 @@ class SignupModal extends Component {
 
                             <div className="day select-container">
                                 <label className="label-styles" htmlFor="Day">Day</label>
-                                <select className="day select-styles" name="Day" id="Day">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27">27</option>
-                                <option value="28">28</option>
-                                <option value="29">29</option>
-                                <option value="30">30</option>
-                                <option value="31">31</option>
+                                <select onChange={this.checkInputs2} className="day select-styles" name="Day" id="day-select">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
                                 </select>
                                 <div className="error-msg hide"></div>
                             </div>
 
                             <div className="year select-container">
                                 <label className="label-styles" htmlFor="Year">Year</label>
-                                <select className="year select-styles" name="Year" id="Year">
+                                <select onChange={this.checkInputs2} className="year select-styles" name="Year" id="year-select">
+                                    <option value=""></option>
                                     <option value="2020">2020</option>
                                     <option value="2019">2019</option>
                                     <option value="2018">2018</option>
@@ -173,13 +191,6 @@ class SignupModal extends Component {
                                 </select>
                                 <div className="error-msg hide"></div>
                             </div>
-
-
-
-
-                            {/* <Select id="month" isMulti onChange={this.props.addTagsFns} options={tagsOptionsMonth}/>
-                            <Select id="day" isMulti onChange={this.props.addTagsFns} options={tagsOptionsDay}/>
-                            <Select id="year" isMulti onChange={this.props.addTagsFns} options={tagsOptionsYear}/> */}
                         </div>
                     </div>
                 </div>
