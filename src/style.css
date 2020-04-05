@@ -145,10 +145,11 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -81%);
-    min-height: 400px;
+    transform: translate(-50%, -51%);
+    min-height: 630px;
     background-color: #15202C;
-    width: 600px;
+    max-width: 600px;
+    width: 80vw;
     margin: auto;
     text-align: center;
     border-radius: 14px;
@@ -227,21 +228,13 @@ body {
     color: #8594A2;
     text-align: left;
     font-size: 15px;
-    margin-bottom: 20px;
-}
-
-.select-styles {
-    width: 100%;
-    background: transparent;
-    border: none;
-    top: 23px;
-    position: relative;
-    height: 28px;
+    margin-bottom: 5px;
 }
 
 .select-container {
     margin: auto;
     min-height: 52px;
+    margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 0 10px;
@@ -256,35 +249,82 @@ body {
 }
 
 .year.select-container {
-    width: calc(55% / 2);
+    width: 27%;
 }
 
 .month.select-container {
-    width: 45%;
+    width: 41%;
 }
 
 .day.select-container {
-    width: calc(55% / 2);
+    width: 15%;
+}
+
+.select-styles {
+    width: 100%;
+    background: transparent;
+    border: none;
+    top: 23px;
+    position: relative;
+    height: 28px;
 }
 
 .year.select-styles {
     color: #FFF;
     display: inline-block;
-    width: 33%;
 }
 
 .month.select-styles {
     color: #FFF;
     display: inline-block;
-    width: 33%;
 }
 
 .day.select-styles {
     color: #FFF;
     display: inline-block;
-    width: 33%;
 }
 
 .select-styles:focus {
     outline: none;
+}
+
+.dob-container {
+    text-align: left;
+}
+
+.login-button:disabled, .next-btn:disabled {
+    opacity: .6;
+    cursor: no-drop;
+}
+
+@media only screen and (max-width: 740px) {
+    .year.select-container {
+        width: 27%;
+    }
+    
+    .month.select-container {
+        width: 39%;
+    }
+    
+    .day.select-container {
+        width: 14%;
+    }
+
+    .year.select-container {
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 578px) {
+    .year.select-container {
+        width: 24%;
+    }
+    
+    .month.select-container {
+        width: 33%;
+    }
+    
+    .day.select-container {
+        width: 14%;
+    }
 }
