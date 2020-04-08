@@ -1,5 +1,8 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import SignupModal from './signupModal';
+import CreateAccountModal from './createAccountModal';
+import {loginUserAction} from '../../actions/loginUserAction';
 
 class Login extends Component {
 
@@ -34,12 +37,24 @@ class Login extends Component {
 				loginDisabled: true,
 			})
 		}
-    }
+	}
+	
+	loginUser = (e) => {
+		let username = document.getElementById('username-input');
+		let password = document.getElementById('password-input');
+		this.props.loginUserAction(username, password);
+	}
+
+	nextModal = () => {
+		document.getElementById('signupModal').classList.add("hide");
+        document.getElementById('createAccountModal').classList.remove("hide");
+	}
 
 	render() {
 		return (
 			<Fragment>
-				<SignupModal />
+				<SignupModal nextModalfns={this.nextModal}/>
+				<CreateAccountModal />
 				<div className='login-container'>
 					<div className="login-gutter">
 						<div>
@@ -64,7 +79,7 @@ class Login extends Component {
 						</div>
 
 						<div className="login-button-container">
-							<button disabled={this.state.loginDisabled} className="login-button">Log in</button>
+							<button onClick={this.loginUser} disabled={this.state.loginDisabled} className="login-button">Log in</button>
 						</div>
 
 						<div className="forgot-container">
@@ -77,4 +92,12 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+function mapStateToProps(state) {
+	return {
+
+	}
+}
+
+export default connect(mapStateToProps, {
+	loginUserAction
+})(Login);
