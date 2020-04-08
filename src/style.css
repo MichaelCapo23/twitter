@@ -56,7 +56,7 @@ body {
     position: relative;
 }
 
-.input-container-signup {
+.input-container-signup, .input-container-create-account {
     margin: auto;
     min-height: 52px;
     margin-top: 20px;
@@ -71,6 +71,10 @@ body {
     position: relative;
 }
 
+.input-container-create-account {
+    margin-bottom: 0;
+}
+
 .input-styles {
     height: 100%;
     width: 100%;
@@ -82,7 +86,16 @@ body {
     height: 31px;
 }
 
-.input-styles:focus {
+.input-styles-create-account {
+    width: 100%;
+    background-color: transparent;
+    border: none !important;
+    color: #FFF;
+    font-size: 21px;
+    height: 45px;
+}
+
+.input-styles:focus, .input-styles-create-account:focus {
     outline: none !important;
 }
 
@@ -129,7 +142,7 @@ body {
     cursor: pointer;
 }
 
-.signup-modal-overall-container {
+.signup-modal-overall-container, .create-account-modal-overall-container {
     z-index: 6;
     width: 100vw;
     height: 100vh;
@@ -153,6 +166,7 @@ body {
     margin: auto;
     text-align: center;
     border-radius: 14px;
+    z-index: 6;
 }
 
 .signup-header-container {
@@ -167,6 +181,31 @@ body {
     color: rgb(255, 255, 255);
     fill: currentcolor;
     width: 100%;
+}
+
+.step-text {
+    font-weight: bolder;
+    color: #FFF;
+    font-size: 18px;
+    text-align: left;
+    position: absolute;
+    top: 17px;
+    left: 65px;
+}
+
+.create-account-back {
+    height: 24px;
+    color: var(--twiter-blue);
+    fill: currentcolor;
+    position: absolute;
+    top: 15px;
+    left: 19px;
+    width: 24px;
+    border-radius: 100px;
+}
+
+.create-account-back:hover {
+    background-color: rgba(29,161,242,0.1);
 }
 
 .next-btn {
@@ -184,8 +223,27 @@ body {
     padding: 0 18px;
 }
 
-.signup-modal-body-container {
+.signup-modal-body-container, .create-account-modal-body-container, .create-account-footer-container {
     padding: 0 30px;
+}
+
+.create-account-footer-container {
+    margin-bottom: 10px;
+}
+
+.create-account-modal-body-container {
+    margin-bottom: 60px;
+}
+
+.terms-text {
+    color: #FFF;
+    text-align: left;
+    line-height: 1.3;
+    font-size: 15px;
+}
+
+.terms-text-span {
+    color: #2183c3;
 }
 
 .create-text {

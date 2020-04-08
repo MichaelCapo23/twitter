@@ -29,7 +29,6 @@ class SignupModal extends Component {
         let name = document.getElementById('name-input');
         let phone = document.getElementById('phone-input');
 
-        debugger;
         if(month.value !== '' && day.value !== '' && year.value !== '' && name.value !== '' && phone.value !== '') {
             this.setState({
 				nextDisabled: false,
@@ -39,6 +38,10 @@ class SignupModal extends Component {
 				nextDisabled: true,
 			})
         }
+    }
+
+    openNextModal = () => {
+        this.props.nextModalfns();
     }
 
     render() {
@@ -53,7 +56,7 @@ class SignupModal extends Component {
                                 </g>
                             </svg>
                         </div>
-                        <button disabled={this.state.nextDisabled} className="next-btn">Next</button>
+                        <button onClick={this.openNextModal} disabled={this.state.nextDisabled} className="next-btn">Next</button>
                     </div>
                     <div className="signup-modal-body-container">
                         <div className="create-text">Create your account</div>
