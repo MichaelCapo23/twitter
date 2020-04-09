@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {signupUserAction} from '../../actions/signupUserAction';
+import {connect} from 'react-redux';
 
 class CreateAccountModal extends Component {
 
@@ -7,8 +9,8 @@ class CreateAccountModal extends Component {
     }
 
     closeModal = (e) => {
-        if(e.target.classList[0] === 'signup-modal-overall-container') {
-            document.getElementById('signupModal').classList.add("hide");
+        if(e.target.classList[0] === 'create-account-modal-overall-container') {
+            document.getElementById('createAccountModal').classList.add("hide");
         }
     };
 
@@ -40,13 +42,18 @@ class CreateAccountModal extends Component {
         }
     }
 
+    signupUser = () => {
+        //give this action values for service
+        this.props.signupUserAction();
+    }
+
     render() {
         return (
-            <div onClick={this.closeModal} id="createAccountModal" className="create-account-modal-overall-container">
+            <div onClick={this.closeModal} id="createAccountModal" className="create-account-modal-overall-container hide">
                 <div className="signup-modal-content">
                     <div className="signup-header-container">
                         <div>
-                            <svg class="create-account-back"><g><path d="M20 11H7.414l4.293-4.293c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0l-6 6c-.39.39-.39 1.023 0 1.414l6 6c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L7.414 13H20c.553 0 1-.447 1-1s-.447-1-1-1z"></path></g></svg><span class="css-901oao css-16my406 css-bfa6kz r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0"></span>
+                            <svg className="create-account-back"><g><path d="M20 11H7.414l4.293-4.293c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0l-6 6c-.39.39-.39 1.023 0 1.414l6 6c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L7.414 13H20c.553 0 1-.447 1-1s-.447-1-1-1z"></path></g></svg><span></span>
                         </div>
                         <div className="step-text">Step 2 of 2</div>
                     </div>
@@ -55,19 +62,19 @@ class CreateAccountModal extends Component {
 
                         <div className="input-container-create-account">
 							<label className="label-styles hide" htmlFor="name">Name</label>
-							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles-create-account" target="name" id="name-input"/>
+							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles-create-account" target="name" id="name-input-create"/>
                             <div className="error-msg hide"></div>
 						</div>
 
                         <div className="input-container-create-account">
 							<label className="label-styles hide" htmlFor="phone">phone</label>
-							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles-create-account" target="phone" id="phone-input"/>
+							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles-create-account" target="phone" id="phone-input-create"/>
                             <div className="error-msg hide"></div>
 						</div>
 
                         <div className="input-container-create-account">
-							<label className="label-styles hide" htmlFor="phone">phone</label>
-							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles-create-account" target="phone" id="phone-input"/>
+							<label className="label-styles hide" htmlFor="date">date</label>
+							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles-create-account" target="phone" id="dob-input-create"/>
                             <div className="error-msg hide"></div>
 						</div>
                     </div>
@@ -78,8 +85,8 @@ class CreateAccountModal extends Component {
                         </div>
                     </div>
 
-                    <div className="login-button-container">
-                        <button onClick={this.loginUser} disabled={this.state.loginDisabled} className="login-button">Sign up</button>
+                    <div className="create-account-button-container">
+                        <button onClick={this.signupUser} disabled={this.state.loginDisabled} className="login-button">Sign up</button>
                     </div>
                 </div>
             </div>
@@ -87,4 +94,12 @@ class CreateAccountModal extends Component {
     }
 }
 
-export default CreateAccountModal;
+function mapStateToProps(state) {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, {
+    signupUserAction
+})(CreateAccountModal);

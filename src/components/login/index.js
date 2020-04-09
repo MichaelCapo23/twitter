@@ -45,8 +45,11 @@ class Login extends Component {
 		this.props.loginUserAction(username, password);
 	}
 
-	nextModal = () => {
+	nextModal = (date, name, phone) => {
 		document.getElementById('signupModal').classList.add("hide");
+		document.getElementById('name-input-create').value = name
+		document.getElementById('phone-input-create').value = phone
+		document.getElementById('dob-input-create').value = date
         document.getElementById('createAccountModal').classList.remove("hide");
 	}
 
