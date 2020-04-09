@@ -111,12 +111,16 @@ body {
     color: var(--twiter-blue);
 }
 
-.login-button-container {
+.login-button-container, .create-account-button-container {
     margin:auto;
     width: 90%;
     height: 50px;
     margin-top: 10px;
     margin-bottom: 30px;
+}
+
+.create-account-button-container {
+    margin-top: 15px;
 }
 
 .login-button {
@@ -225,10 +229,6 @@ body {
 
 .signup-modal-body-container, .create-account-modal-body-container, .create-account-footer-container {
     padding: 0 30px;
-}
-
-.create-account-footer-container {
-    margin-bottom: 10px;
 }
 
 .create-account-modal-body-container {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from "moment";
 
 class SignupModal extends Component {
 
@@ -41,7 +42,33 @@ class SignupModal extends Component {
     }
 
     openNextModal = () => {
-        this.props.nextModalfns();
+        let month = document.getElementById('month-select');
+        let day = document.getElementById('day-select');
+        let year = document.getElementById('year-select');
+        let name = document.getElementById('name-input');
+        let phone = document.getElementById('phone-input');
+
+        debugger;
+        let date = moment(month.value + ' ' + day.value + ', ' + year.value);
+
+        if(name.value.length > 75) {
+            name.nextElementSibling.classList.remove('hide');
+            return;
+        } 
+        if(phone.value.length !== 10) {
+            phone.nextElementSibling.classList.remove('hide');
+            return;
+        } 
+        if(!date.isValid()) {
+            month.nextElementSibling.classList.remove('hide');
+            return;
+        }
+
+        this.props.nextModalfns(date, name.value, phone.value);
+        name.nextElementSibling.classList.add('hide');
+        phone.nextElementSibling.classList.add('hide');
+        month.nextElementSibling.classList.add('hide');
+
     }
 
     render() {
@@ -64,13 +91,13 @@ class SignupModal extends Component {
                         <div className="input-container-signup">
 							<label className="label-styles" htmlFor="name">Name</label>
 							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles" target="name" id="name-input"/>
-                            <div className="error-msg hide"></div>
+                            <div className="error-msg hide">Invalid name</div>
 						</div>
 
                         <div className="input-container-signup">
 							<label className="label-styles" htmlFor="phone">phone</label>
 							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles" target="phone" id="phone-input"/>
-                            <div className="error-msg hide"></div>
+                            <div className="error-msg hide">Invalid phone number</div>
 						</div>
 
                         <div className="email-text">Use email instead</div>
@@ -82,20 +109,20 @@ class SignupModal extends Component {
                                 <label className="label-styles" htmlFor="Month">Month</label>
                                 <select onChange={this.checkInputs2} className="month select-styles" name="Month" id="month-select">
                                     <option value=""></option>
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3">March</option>
-                                    <option value="4">April</option>
-                                    <option value="5">May</option>
-                                    <option value="6">June</option>
-                                    <option value="7">July</option>
-                                    <option value="8">August</option>
-                                    <option value="9">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
                                 </select>
-                                <div className="error-msg hide"></div>
+                                <div className="error-msg hide">Invalid date</div>
                             </div>
 
                             <div className="day select-container">
