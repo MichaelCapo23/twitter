@@ -49,7 +49,7 @@ class Login extends Component {
 		document.getElementById('signupModal').classList.add("hide");
 		document.getElementById('name-input-create').value = name
 		document.getElementById('phone-input-create').value = phone
-		document.getElementById('dob-input-create').value = date
+		document.getElementById('dob-input-create').value = date.format('YYYY-MM-DD');
         document.getElementById('createAccountModal').classList.remove("hide");
 	}
 

@@ -48,7 +48,6 @@ class SignupModal extends Component {
         let name = document.getElementById('name-input');
         let phone = document.getElementById('phone-input');
 
-        debugger;
         let date = moment(month.value + ' ' + day.value + ', ' + year.value);
 
         if(name.value.length > 75) {

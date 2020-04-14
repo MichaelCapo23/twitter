@@ -28,6 +28,26 @@ body {
     width: 100%;
 }
 
+.home-logo, .hastag-logo, .notifications-logo, .messages-logo, .bookmark-logo, .lists-logo, .profile-logo, .more-logo {
+    height: 33px;
+    color: rgb(255, 255, 255);
+    fill: currentcolor;
+    width: 28%;
+    display: inline-block;
+}
+
+.landing-list-text {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    top: 4px;
+    line-height: 1.3125;
+    font-size: 20px;
+    color: #FFF;
+    font-weight: bold;
+    padding-left: 6px;
+}
+
 .login-header {
     height: 39px;
     width: 100%;
@@ -353,6 +373,61 @@ body {
 .login-button:disabled, .next-btn:disabled {
     opacity: .6;
     cursor: no-drop;
+}
+
+.landing-container {
+    background-color: #15202B;
+    height: auto;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.landing-left-container, .landing-right-container {
+    display: inline-block;
+    height: auto;
+    min-height: 100vh;
+}
+
+.landing-left-container {
+    width: 31.5%;
+    border-right: 1px solid #37444D;
+} 
+
+.landing-right-container {
+    width: 68.5%;
+}
+
+.left-list-container {
+    width: 225px;
+    margin-right: 50px;
+    height: auto;
+    border: 1px solid black;
+    float: right;
+}
+
+.landing-logo-container {
+    text-align: left;
+}
+
+.landing-list-container {
+    padding: 10px;
+}
+
+.landing-list-container:hover:not(.landing-list-first) {
+    padding: 0;
+}
+
+.landing-list-container:hover > .landing-hover-container:not(.landing-list-first) {
+    background-color: rgba(29, 161, 242, 0.1);
+    border-radius: 100px;
+    width: 90%;
+    padding: 10px;
+    white-space: nowrap;
+
+}
+
+.landing-list-container:hover > .landing-hover-container:not(.landing-list-first) > .landing-list-text, .landing-list-container:hover > .landing-hover-container:not(.landing-list-first) > svg {
+    color: #2AA0F2;
 }
 
 @media only screen and (max-width: 740px) {

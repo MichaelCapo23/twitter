@@ -8,11 +8,11 @@ class App extends Component {
 
 	render() {
 		return (
-	    <Router>
-	    	<Route exact path={'/'} component={Landing}></Route>
-	    	<Route path={'/login'} component={Login}></Route>
-	    </Router>
-	  );
+			<Router>
+				<Route exact path={'/'} component={Landing}/>
+				<Route path={'/login'} component={Login}/>
+			</Router>
+		);
 	}
 }
 
