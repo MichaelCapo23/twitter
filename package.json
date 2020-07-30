@@ -26,7 +26,6 @@
     "redux": "^4.0.5",
     "reverse-md5": "0.0.4"
   },
-  "proxy": "http://localhost:3000",
   "scripts": {
     "start-js": "react-scripts start",
     "backend-start": "nodemon backend/server.js",

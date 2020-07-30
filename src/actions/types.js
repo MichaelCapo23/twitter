@@ -1,6 +1,6 @@
 export default {
-    LOGIN_USER: 'lgoin_suer',
-    LOGIN_USER_ERROR: 'lgoin_suer_error',
-    SIGNUP_USER: 'signup_user',
-    SIGNUP_USER_ERROR: 'signup_user_error',
+    LOGIN_USER: 'login_user',
+    LOGIN_USER_ERROR: 'login_user_error',
+    ADD_NEW_USER: 'add_new_user',
+    ADD_NEW_USER_ERROR: 'add_new_user_error',
 }

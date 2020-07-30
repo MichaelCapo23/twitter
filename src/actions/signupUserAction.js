@@ -1,24 +1,27 @@
 import axios from 'axios';
 import types from './types';
 
-export const signupUserAction = (values) => async dispatch => {
+export const signupUserAction = (values) => async dispacth => {
     try {
         axios({
-            method: "POST",
-            url: "/signupUser",
-            headers: {
-
+            method: 'PUT',
+            url: '/add_new_user',
+            data: {
+                username: values.username,
+                phone: values.phone,
+                dob: values.dob,
+                password: values.password
             }
         }).then(response => {
-            dispatch({
-                type: types.SIGNUP_USER,
+            dispacth({
+                type: types.ADD_NEW_USER,
                 action: response.data
             })
         })
     } catch {
-        dispatch({
-            type: types.SIGNUP_USER_ERROR,
-            action: 'Unable to signup user'
+        dispacth({
+            type: types.ADD_NEW_USER_ERROR,
+            action: 'Unable to add new user'
         })
     }
-}
+};

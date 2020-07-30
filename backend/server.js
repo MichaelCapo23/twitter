@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const db = mysql.createConnection(mysql_creds);
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 
 app.use(function (req, res, next) {
@@ -29,4 +29,4 @@ app.get('/express_backend', (req, res) => {
 });
 
 //require file example
-// require('./getTagsOptions')(app, db);
+require('./add_new_user')(app, db);
