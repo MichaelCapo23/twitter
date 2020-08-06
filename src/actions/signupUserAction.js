@@ -2,6 +2,7 @@ import axios from 'axios';
 import types from './types';
 
 export const signupUserAction = (values) => async dispacth => {
+    debugger
     try {
         axios({
             method: 'PUT',
