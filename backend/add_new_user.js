@@ -1,5 +1,7 @@
 const md5 = require('md5');
-const checkForUser = require('./node_fns').checkForUser;
+const moment = require('moment');
+const nodeFns = require('./node_fns');
+
 
 module.exports = async (app, db) => {
     app.put('/add_new_user', async (req, res, next) => {
@@ -8,23 +10,47 @@ module.exports = async (app, db) => {
             status: 'NO',
             content: 'Unable to Create Account'
         };
+        let params = ['username', 'password', 'phone', 'dob'];
+        let object = {};
+        //loop through params and validate all/correct headers are sent and have values
+        params.forEach(element => {
+            if(req.headers[element] && req.headers[element] != '') {
+                //cleanInput when made
+                object[element] = req.headers[element];
+            } else {
+                output.content = 'Missing parameter '+element+' --add new user';
+                res.send(output);
+                return;
+            }
+        });
+        //md5 password
+        object.password = md5(object.password);
 
-        let {username,phone,dob,password} = req.headers;
-        password = md5(password);
-        let resultUsersFound = await checkForUser(username, password, db);
+        // get insert id from insert query and send it to 
+        // let insertID = data2.insertId
+
+        //create new token for user validation
+        let token = md5(moment() + object.password + object.username);
+
+        //check if username and password have been used before, if so return
+        let resultUsersFound = await nodeFns.checkForUser(object.username, object.password, db);
         if(resultUsersFound[0].accounts > 0) {
             output.content = "Invalid Username/Password";
             res.send(output);
             return;
         }
 
-        let sql2 = "INSERT INTO `accounts` (`username`, `phone`, `dob`, `password`) VALUES (?,?,?,?)";
-        db.query(sql2, [username,phone,dob,password], (err, data2) => {
+        //get the values from headers object for prepared statement 
+        let valuesArr = Object.values(object);
+
+        let sql2 = "INSERT INTO `accounts` (`username`, `password`, `phone`, `dob`) VALUES (?,?,?,?)";
+        db.query(sql2, valuesArr, async (err, data2) => {
             if(err) {
                 console.log(err);
                 res.send(err);
                 return;
             } else {
+                let session = await nodeFns.addSession(object.username, token, db);
                 output.status = "OK";
                 output.content = "Successfully Added Account!";
                 res.send(output);

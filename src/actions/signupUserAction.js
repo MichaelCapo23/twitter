@@ -14,10 +14,14 @@ export const signupUserAction = (values) => async dispacth => {
                 password: values.password
             }
         }).then(response => {
-            dispacth({
-                type: types.ADD_NEW_USER,
-                action: response.data
-            })
+            if(response.status == 'OK') {
+                dispacth({
+                    type: types.ADD_NEW_USER,
+                    action: response.data
+                })
+            } else {
+                throw new Exception(response.content);
+            }
         })
     } catch {
         dispacth({
