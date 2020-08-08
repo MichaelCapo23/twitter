@@ -26,8 +26,7 @@ module.exports = async (app, db) => {
         //md5 password
         object.password = md5(object.password);
 
-        // get insert id from insert query and send it to 
-        // let insertID = data2.insertId
+        
 
         //create new token for user validation
         let token = md5(moment() + object.password + object.username);
@@ -50,10 +49,11 @@ module.exports = async (app, db) => {
                 res.send(err);
                 return;
             } else {
+                // get insert id from insert query and send it to 
                 let session = await nodeFns.addSession(object.username, token, db);
                 output.status = "OK";
-                output.content = "Successfully Added Account!";
-                res.send(output);
+                output.content = token;
+                res.send(output)
                 return;
             }
         })

@@ -37,7 +37,6 @@ class CreateAccountModal extends Component {
     }
     
     checkInputs2 = (e) => {
-        debugger;
         let isValid = true;
         let name = this.name_input.current.value;
         let password = this.password_input.current.value;
@@ -81,13 +80,16 @@ class CreateAccountModal extends Component {
     }
 
     signupUser = () => {
-        //give this action values for service
-
-        this.props.signupUserAction();
+        let name = this.name_input.current.value;
+        let password = this.password_input.current.value;
+        let phone = this.phone_input.current.value;
+        let dob = this.dob_input.current.value;
+        this.props.signupUserAction(name, password, phone, dob);
     }
 
     componentDidUpdate() {
-        if(this.props.user_id && this.props.user_id != '-1') {
+        if(this.props.token && this.props.token != '') {
+            localStorage.setItem('token', this.props.token);
             this.props.history.push('/');
         }
     }
@@ -156,7 +158,7 @@ class CreateAccountModal extends Component {
 
 function mapStateToProps(state) {
     return {
-        user_id: state.add_new_user_reducer.user_id,
+        token: state.add_new_user_reducer.token,
     }
 }
 

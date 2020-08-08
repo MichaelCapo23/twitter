@@ -23,7 +23,7 @@ class SignupModal extends Component {
 		}
     }
     
-    checkInputs2 = (e) => {
+    checkInputsFirst = (e) => {
         let month = document.getElementById('month-select');
         let day = document.getElementById('day-select');
         let year = document.getElementById('year-select');
@@ -89,13 +89,13 @@ class SignupModal extends Component {
 
                         <div className="input-container-signup">
 							<label className="label-styles" htmlFor="name">Name</label>
-							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles" target="name" id="name-input"/>
+							<input onChange={this.checkInputsFirst} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="name" className="input-styles" target="name" id="name-input"/>
                             <div className="error-msg hide">Invalid name</div>
 						</div>
 
                         <div className="input-container-signup">
 							<label className="label-styles" htmlFor="phone">phone</label>
-							<input onChange={this.checkInputs2} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles" target="phone" id="phone-input"/>
+							<input onChange={this.checkInputsFirst} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="phone" className="input-styles" target="phone" id="phone-input"/>
                             <div className="error-msg hide">Invalid phone number</div>
 						</div>
 
@@ -106,7 +106,7 @@ class SignupModal extends Component {
                         <div className="dob-container">
                             <div className="month select-container">
                                 <label className="label-styles" htmlFor="Month">Month</label>
-                                <select onChange={this.checkInputs2} className="month select-styles" name="Month" id="month-select">
+                                <select onChange={this.checkInputsFirst} className="month select-styles" name="Month" id="month-select">
                                     <option value=""></option>
                                     <option value="January">January</option>
                                     <option value="February">February</option>
@@ -126,7 +126,7 @@ class SignupModal extends Component {
 
                             <div className="day select-container">
                                 <label className="label-styles" htmlFor="Day">Day</label>
-                                <select onChange={this.checkInputs2} className="day select-styles" name="Day" id="day-select">
+                                <select onChange={this.checkInputsFirst} className="day select-styles" name="Day" id="day-select">
                                     <option value=""></option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -165,7 +165,7 @@ class SignupModal extends Component {
 
                             <div className="year select-container">
                                 <label className="label-styles" htmlFor="Year">Year</label>
-                                <select onChange={this.checkInputs2} className="year select-styles" name="Year" id="year-select">
+                                <select onChange={this.checkInputsFirst} className="year select-styles" name="Year" id="year-select">
                                     <option value=""></option>
                                     <option value="2020">2020</option>
                                     <option value="2019">2019</option>
