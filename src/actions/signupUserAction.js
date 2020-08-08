@@ -1,27 +1,26 @@
 import axios from 'axios';
 import types from './types';
 
-export const signupUserAction = (values) => async dispacth => {
-    debugger
+export const signupUserAction = (username, password, phone, dob) => async dispacth => {
     try {
         axios({
             method: 'PUT',
             url: '/add_new_user',
-            data: {
-                username: values.username,
-                phone: values.phone,
-                dob: values.dob,
-                password: values.password
+            headers: {
+                username: username,
+                phone: phone,
+                dob: dob,
+                password: password
             }
         }).then(response => {
-            if(response.status == 'OK') {
-                dispacth({
-                    type: types.ADD_NEW_USER,
-                    action: response.data
-                })
-            } else {
-                throw new Exception(response.content);
-            }
+            let typeVal = types.ADD_NEW_USER_ERROR
+            if(response.data.status == 'OK') {
+               typeVal = types.ADD_NEW_USER;
+            } 
+            dispacth({
+                type: typeVal,
+                action: response.data.content
+            })
         })
     } catch {
         dispacth({

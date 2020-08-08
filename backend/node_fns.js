@@ -58,119 +58,23 @@ const updateSession = async (token, db) => {
 }
 module.exports.updateSession = updateSession
 
+function validID(table,col,id,db){
+    return new Promise((resolve, reject) => {
+        let sql = "SELECT COUNT(*) as 'count' FROM `?` WHERE `?` = '?'";
+        let valuesArr = [table, col, id];
+        db.query(sql, valuesArr, (err, data) => {
+            if(err) {
+                reject(err)
+            } 
 
-
-
-// const cleanInput = () => {
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const md5 = require('md5');
-// const nodeFns = require('./node_fns');
-
-// module.exports = async (app, db) => {
-//     app.put('/add_new_user', async (req, res, next) => {
-//         db.connect() 
-//         let output = {
-//             status: 'NO',
-//             content: 'Unable to Create Account'
-//         };
-//         let params = ['username', 'password', 'phone', 'dob'];
-//         let object = {};
-//         //loop through params and validate all/correct headers are sent and have values
-//         params.forEach(element => {
-//             if(req.headers[element] && req.headers[element] != '') {
-//                 //cleanInput when made
-//                 object[element] = req.headers[element];
-//             } else {
-//                 output.content = 'Missing parameter '+element+' --add new user';
-//                 res.send(output);
-//                 return;
-//             }
-//         });
-//         //md5 password
-//         object.password = md5(object.password);
-
-//         //check if username and password have been used before, if so return
-//         let resultUsersFound = await nodeFns.checkForUser(object.username, object.password, db);
-//         if(resultUsersFound[0].accounts > 0) {
-//             output.content = "Invalid Username/Password";
-//             res.send(output);
-//             return;
-//         }
-
-//         //get the values from headers object for prepared statement 
-//         let valuesArr = Object.values(object)
-//         let sql2 = "INSERT INTO `accounts` (`username`, `password`, `phone`, `dob`) VALUES (?,?,?,?)";
-//         db.query(sql2, valuesArr, async (err, data2) => {
-//             if(err) {
-//                 console.log(err);
-//                 res.send(err);
-//                 return;
-//             } else {
-//                 //get insert id from insert query and send it to 
-//                 // let insertID = data2.insertId
-
-//                 //create new token for user validation
-//                 let token = md5(moment() + object.password + object.username);
-
-//                 //update session, check if successful send back response
-//                 let session = await nodeFns.addSession(object.username, insertID, token);
-//                 if(session.status == 'OK') {
-//                     output.status = "OK";
-//                     output.content = "Successfully Added Account!";
-//                     res.send(output);
-//                     return;
-//                 } else {
-//                     output.content = session.content;
-//                     res.send(output);
-//                     return;
-//                 }
-                
-//             }
-//         })
-//     })
-// }
+            // let response = col+" Not found. Invalid "+table+" "+col;
+            let response = false;
+            if(data[0].count == 0) {
+                resolve(response);
+            } else {
+                response = true;
+                resolve(response);
+            }
+        })
+    })
+}
