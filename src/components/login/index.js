@@ -5,10 +5,16 @@ import CreateAccountModal from './createAccountModal';
 import {loginUserAction} from '../../actions/loginUserAction';
 
 class Login extends Component {
+	constructor(props) {
+		super(props);
 
-	state = {
-		loginDisabled: true,
-	};
+		this.usernameRef = React.createRef();
+		this.passwordRef = React.createRef();
+
+		this.state = {
+			loginDisabled: true,
+		}
+	}
 
 	colorChange = (e, flag) => {
 		if(flag) {
@@ -25,10 +31,10 @@ class Login extends Component {
 	}
 
 	checkInputs = (e) => {
-		let username = document.getElementById('username-input');
-		let password = document.getElementById('password-input');
+		let username = this.usernameRef.current.value;
+		let password = this.passwordRef.current.value;
 
-		if(username.value !== '' && password.value !== '') {
+		if(username !== '' && password !== '') {
 			this.setState({
 				loginDisabled: false,
 			})
@@ -40,8 +46,8 @@ class Login extends Component {
 	}
 	
 	loginUser = (e) => {
-		let username = document.getElementById('username-input');
-		let password = document.getElementById('password-input');
+		let username = this.usernameRef.current.value;
+		let password = this.passwordRef.current.value;
 		this.props.loginUserAction(username, password);
 	}
 
@@ -52,6 +58,13 @@ class Login extends Component {
 		document.getElementById('dob-input-create').value = date.format('YYYY-MM-DD');
         document.getElementById('createAccountModal').classList.remove("hide");
 	}
+
+	componentDidUpdate() {
+        if(this.props.token && this.props.token != '') {
+            localStorage.setItem('token', this.props.token);
+            this.props.history.push('/');
+        }
+    }
 
 	render() {
 		return (
@@ -71,13 +84,13 @@ class Login extends Component {
 
 						<div className="input-container">
 							<label className="label-styles" htmlFor="username">Phone, email, or username</label>
-							<input onChange={this.checkInputs} autoComplete="off" onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="username" className="input-styles" target="username" id="username-input"/>
+							<input ref={this.usernameRef} onChange={this.checkInputs} autoComplete="off" onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="username" className="input-styles" target="username" id="username-input"/>
 							<div className="error-msg hide"></div>
 						</div>
 						
 						<div className="input-container">
 							<label className="label-styles" htmlFor="password">Password</label>
-							<input onChange={this.checkInputs} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="password" className="input-styles" type="password" target="password" id="password-input"/>
+							<input ref={this.passwordRef} onChange={this.checkInputs} onFocus={e => this.colorChange(e, true)} onBlur={e => this.colorChange(e, false)} name="password" className="input-styles" type="password" target="password" id="password-input"/>
 							<div className="error-msg hide"></div>
 						</div>
 
@@ -97,7 +110,7 @@ class Login extends Component {
 
 function mapStateToProps(state) {
 	return {
-
+		token: state.login_user_reducer.token,
 	}
 }
 

@@ -1,15 +1,15 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
-    token: false
-};
+    token: false 
+}
 
 export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
-        case types.ADD_NEW_USER: 
+        case types.LOGIN_USER:
             return {...state, token: action};
             break;
-        case types.ADD_NEW_USER_ERROR: 
+        case types.LOGIN_USER_ERROR:
             return {...state, token: false};
             break;
         case types.EXPIRED_TOKEN:

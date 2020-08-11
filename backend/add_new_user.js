@@ -2,10 +2,9 @@ const md5 = require('md5');
 const moment = require('moment');
 const nodeFns = require('./node_fns');
 
-
 module.exports = async (app, db) => {
     app.put('/add_new_user', async (req, res, next) => {
-        db.connect() 
+        db.connect();
         let output = {
             status: 'NO',
             content: 'Unable to Create Account'
@@ -49,7 +48,6 @@ module.exports = async (app, db) => {
                 res.send(err);
                 return;
             } else {
-                // get insert id from insert query and send it to 
                 let session = await nodeFns.addSession(object.username, token, db);
                 output.status = "OK";
                 output.content = token;
@@ -59,7 +57,3 @@ module.exports = async (app, db) => {
         })
     })
 }
-
-
-
-

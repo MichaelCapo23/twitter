@@ -3,7 +3,7 @@ const moment = require('moment');
 const nodeFns = require('./node_fns');
 
 module.exports = async (app, db) => {
-    app.get('/login', async (req, res) => {
+    app.get('/loginUser', async (req, res) => {
         db.connect();
         let output = {
             status: 'NO',
