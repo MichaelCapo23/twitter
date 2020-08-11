@@ -31,6 +31,3 @@ app.get('/express_backend', (req, res) => {
 //require file example
 require('./add_new_user')(app, db);
 require('./login')(app, db);
-
-// module.exports.app = app;
-// module.exports.db = db;

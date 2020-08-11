@@ -1,4 +1,25 @@
 const moment = require('moment');
+const { response } = require('express');
+
+const auth = async  (token, db) => {
+    return Promise((resolve, reject) => {
+        let sql = "SELECT `expiration` FROM `session` WHERE `token` = ?";
+        db.query(sql, token, (err, data) => {
+            if(err) {
+                reject(err);
+                return;
+            }
+
+            let expiration = moment(data[0].expiration);
+            let currentMoment = moment();
+            if(expiration > currentMoment) {
+                resolve(false);
+            } else {
+                resolve(true);
+            }
+        })
+    })
+}
 
 const checkForUser = async (username, password, db) => {
     return new Promise((resolve, reject) => {
