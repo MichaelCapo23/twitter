@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 class Landing extends Component {
 
@@ -7,6 +9,7 @@ class Landing extends Component {
 	};
 
 	render() {
+		debugger
 		return (
 			<div className="landing-container">
 				<div className="landing-left-container">
@@ -102,15 +105,28 @@ class Landing extends Component {
 								<div className="landing-list-text">More</div>
 							</div>
 						</div>
-						<div className=".tweet-btn-container">
+						<div className="tweet-btn-container">
 							<div className="login-button-container">
 								<button onClick={this.tweet} className="tweet-btn">Tweet</button>
 							</div>
 						</div>
 					</div>
+
+					<div className="account-left-container">
+						<div className="left-left-container">
+							<img className="image-tag" src="https://i.imgur.com/BA42iXM.png" alt=""/>
+						</div>	
+						<div className="left-middle-container">
+							<div className="left-middle-top">{this.props.username}</div>
+							<div className="left-middle-bottom">{this.props.mention}</div>
+						</div>	
+						<div className="left-right-container">
+							
+						</div>	
+					</div>
 				</div>
 				<div className="landing-middle-container">
-					<div className=""></div>		
+
 				</div>
 				<div className="landing-right-container">
 					
@@ -120,4 +136,12 @@ class Landing extends Component {
 	}
 }
 
-export default Landing;
+function mapStateToProps(state) {
+    return {
+		
+    }
+}
+
+export default connect(mapStateToProps, {
+
+})(withRouter(Landing));

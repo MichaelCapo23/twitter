@@ -21,6 +21,38 @@ const auth = async  (token, db) => {
     })
 }
 
+const getAccountInfo = (username, password, db) => {
+    return new Promise((resolve, reject) => {
+        let sql2 = "SELECT `username`, `phone`, `dob`, `bio`, `mention`, IFNULL((SELECT `token` FROM `session` WHERE `username` = ?), 'NONE') AS `token` FROM `accounts` WHERE `username` = ? AND `password` = ?";
+        let valuesArr = [username, username, password];
+        db.query(sql2, valuesArr, async (err, data) => {
+            if(err) {
+                console.log(err);
+                res.send(err);
+                return;
+            } else {
+                data[0].dob = moment(data[0].dob).format('YYYY-MM-DD');
+                let content = data[0];
+                //check if token is default value from query
+                // if(content.token === 'NONE') {
+                //     //create new token for user validation
+                //     let token = md5(moment() + object.password + object.username);
+                //     content.token = token;
+                //     //add new session of user
+                //     let session = await nodeFns.addSession(content.username, token, db)
+                // } else {
+                //     //update session of user
+                //     let session = await nodeFns.updateSession(content.token, db);
+                // }
+                // output.content = content;
+                // output.status = 'OK';
+                // res.send(output);
+            }
+        })
+    })
+}
+module.exports.getAccountInfo = getAccountInfo;
+
 const checkForUser = async (username, password, db) => {
     return new Promise((resolve, reject) => {
         let sql = "SELECT COUNT(*) AS `accounts` FROM `accounts` WHERE `username` = ? AND `password` = ?";

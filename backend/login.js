@@ -40,7 +40,7 @@ module.exports = async (app, db) => {
         valuesArr.splice(0, 0, object.username);
 
         //get account information, possibly the token if user has a row in session table        
-        let sql2 = "SELECT `username`, `phone`, `dob`, `bio`, IFNULL((SELECT `token` FROM `session` WHERE `username` = ?), 'NONE') AS `token` FROM `accounts` WHERE `username` = ? AND `password` = ?";
+        let sql2 = "SELECT `username`, `phone`, `dob`, `bio`, `mention`, IFNULL((SELECT `token` FROM `session` WHERE `username` = ?), 'NONE') AS `token` FROM `accounts` WHERE `username` = ? AND `password` = ?";
         db.query(sql2, valuesArr, async (err, data) => {
             if(err) {
                 console.log(err);
@@ -58,7 +58,7 @@ module.exports = async (app, db) => {
                     let session = await nodeFns.addSession(content.username, token, db)
                 } else {
                     //update session of user
-                    let session = await nodeFns.updateSession(content.token, db)
+                    let session = await nodeFns.updateSession(content.token, db);
                 }
                 output.content = content;
                 output.status = 'OK';

@@ -7,7 +7,7 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
         case types.ADD_NEW_USER: 
-            return {...state, token: action};
+            return {...state, token: action.token, mention: action.mention, username: action.username, bio: action.bio, phone: action.phone};
             break;
         case types.ADD_NEW_USER_ERROR: 
             return {...state, token: false};
