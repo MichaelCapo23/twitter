@@ -383,20 +383,61 @@ body {
 .landing-container {
     background-color: #15202B;
     height: auto;
-    min-height: 100vh;
+    height: 100vh;
     width: 100vw;
 }
 
 .landing-left-container, .landing-middle-container, .landing-right-container {
     display: inline-block;
     height: auto;
-    min-height: 100vh;
+    position: relative;
+    height: 100vh;
+    display: inline-block;
 }
 
 .landing-left-container {
     width: 32%;
     border-right: 1px solid #37444D;
+    vertical-align:top;
 } 
+
+.account-left-container {
+    /* position: absolute;
+    bottom: 0px;
+    right: 0px; */
+    max-width: 37%;
+    margin-right: 10px;
+    margin-left: auto;
+    height: auto;
+    width: calc(32vw * .37);
+}
+
+.image-tag {
+    width:100%;
+    height: auto;
+    /* width: auto;
+    height: 100%; */
+}
+
+.left-left-container, .left-middle-container, .left-right-container {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    border: 1px solid black;
+    vertical-align: top;
+}
+
+.left-left-container {
+    width:20%;
+}
+
+.left-middle-container {
+    width:60%;
+}
+
+.left-right-container {
+    width:17%;
+}
 
 .landing-middle-container {
     width: 31%;
@@ -404,15 +445,19 @@ body {
 }
 
 .landing-right-container {
-    width: 36.9%;
+    width: 36.8%;
 }
 
 .left-list-container {
-    /* max-width: 226px; */
-    max-width: 37%;
+    /* max-width: 37%;
     margin-right: 50px;
     height: auto;
-    float: right;
+    float: right; */
+    max-width: 226px;
+    max-width: 37%;
+    margin-right: 50px;
+    margin-left: auto;
+    height: auto;
 }
 
 .landing-logo-container {

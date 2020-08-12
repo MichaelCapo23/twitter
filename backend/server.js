@@ -29,5 +29,5 @@ app.get('/express_backend', (req, res) => {
 });
 
 //require file example
-require('./add_new_user')(app, db);
+require('./signUp')(app, db);
 require('./login')(app, db);

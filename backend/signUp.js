@@ -40,8 +40,11 @@ module.exports = async (app, db) => {
 
         //get the values from headers object for prepared statement 
         let valuesArr = Object.values(object);
+        
+        //create mention for user based off username
+        valuesArr.push(object.username.split(' ').join(''));
 
-        let sql2 = "INSERT INTO `accounts` (`username`, `password`, `phone`, `dob`) VALUES (?,?,?,?)";
+        let sql2 = "INSERT INTO `accounts` (`username`, `password`, `phone`, `dob`, `mention`) VALUES (?,?,?,?,?)";
         db.query(sql2, valuesArr, async (err, data2) => {
             if(err) {
                 console.log(err);
@@ -50,7 +53,7 @@ module.exports = async (app, db) => {
             } else {
                 let session = await nodeFns.addSession(object.username, token, db);
                 output.status = "OK";
-                output.content = token;
+                output.content = token
                 res.send(output)
                 return;
             }
