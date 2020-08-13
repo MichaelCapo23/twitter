@@ -31,3 +31,4 @@ app.get('/express_backend', (req, res) => {
 //require file example
 require('./signUp')(app, db);
 require('./login')(app, db);
+require('./get_user_account_data')(app, db);

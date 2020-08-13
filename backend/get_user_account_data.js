@@ -1,16 +1,18 @@
 const md5 = require('md5');
 const moment = require('moment');
 const nodeFns = require('./node_fns');
+const { user } = require('./mysql_creds');
+
 
 module.exports = async (app, db) => {
-    app.get('/loginUser', async (req, res) => {
+    app.get('/getUserAccountData', async (req, res) => {
         db.connect();
+        let params = ['token'];
+        let object = {};
         let output = {
             status: 'NO',
             content: ''
         }
-        let params = ['username', 'password'];
-        let object = {};
 
         //loop through params and validate all/correct headers are sent and have values
         params.forEach(element => {
@@ -18,35 +20,43 @@ module.exports = async (app, db) => {
                 //cleanInput
                 object[element] = req.headers[element];
             } else {
-                output.content = 'Missing parameter '+element+' --login';
+                output.content = 'Missing parameter '+element+' --get user account info';
                 res.send(output);
                 return;
             }
         });
 
-        //md5 decode password
-        object.password = md5(object.password);
-
-        //check if username and password have exactly one row 
-        let resultUsersFound = await nodeFns.checkForUser(object.username, object.password, db);
-        if(resultUsersFound[0].accounts != 1) {
-            output.content = "Invalid Username/Password";
+        //Validate token
+        let isTokenValid = await nodeFns.auth(object.token, db);
+        if(!isTokenValid) {
+            output.content = 'Invalid Token';
             res.send(output);
             return;
         }
 
-        //break out values, add extra username to array for sub query
-        let valuesArr = Object.values(object);
-        valuesArr.splice(0, 0, object.username);
-
-        //get account information, possibly the token if user has a row in session table        
-        let sql2 = "SELECT `id`, `username`, `phone`, `dob`, `bio`, `mention`, IFNULL((SELECT `token` FROM `session` WHERE `username` = ?), 'NONE') AS `token` FROM `accounts` WHERE `username` = ? AND `password` = ?";
-        db.query(sql2, valuesArr, async (err, data) => {
+        let userID = isTokenValid;
+        let sql = "SELECT `username`, `password` FROM `accounts` WHERE `id` = '?'";
+        db.query(sql, [userID], (err, data) => {
             if(err) {
                 console.log(err);
                 res.send(err);
                 return;
-            } else {
+            }
+
+            //set username, password to variables to be user in next query
+            let username = data[0].username;
+            let password = data[0].password;
+
+            //get the users information
+            let sql = "SELECT `id`, `username`, `phone`, `dob`, `bio`, `mention`, IFNULL((SELECT `token` FROM `session` WHERE `username` = ?), 'NONE') AS `token` FROM `accounts` WHERE `username` = ? AND `password` = ?";
+            let valuesArr = [username, username, password];
+            db.query(sql, valuesArr, async (err, data) => {
+                if(err) {
+                    console.log(err)
+                    res.send(err);
+                    return;
+                } 
+
                 data[0].dob = moment(data[0].dob).format('YYYY-MM-DD');
                 let content = data[0];
                 //check if token is default value from query
@@ -63,7 +73,8 @@ module.exports = async (app, db) => {
                 output.content = content;
                 output.status = 'OK';
                 res.send(output);
-            }
+            })
         })
     })
 }
+
