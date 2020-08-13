@@ -5,7 +5,7 @@ export const signupUserAction = (username, password, phone, dob) => async dispat
     try {
         axios({
             method: 'PUT',
-            url: '/add_new_user',
+            url: '/addNewUser',
             headers: {
                 username: username,
                 phone: phone,

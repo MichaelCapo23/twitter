@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {getUserAccountData} from '../actions/getUserAccountData';
+import {getUserAccountData} from '../actions/getUserAccountAction';
 
 export default (wrappedComponent, to = '/login', redirect = false) => {
     class Auth extends Component {
         state = {
-
+            getUserAccountData: false
         };
 
         //on the load of the every wrapped component run this function
@@ -61,6 +61,20 @@ export default (wrappedComponent, to = '/login', redirect = false) => {
         };
 
 
+        render() {
+            return <WrappedComponent mediaImages={this.state.mediaImages} profileImages={this.state.profileImages} generalImages={this.state.generalImages} {...this.props}/>
+        }
 
     }
+
+    function mapStateToProps(state) {
+        return {
+
+        }
+
+    }
+
+    return connect(mapStateToProps,{
+        getUserAccountData,
+    })(withRouter(Auth));
 }

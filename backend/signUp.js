@@ -3,7 +3,7 @@ const moment = require('moment');
 const nodeFns = require('./node_fns');
 
 module.exports = async (app, db) => {
-    app.put('/add_new_user', async (req, res, next) => {
+    app.put('/addNewUser', async (req, res, next) => {
         db.connect();
         let output = {
             status: 'NO',
@@ -51,7 +51,8 @@ module.exports = async (app, db) => {
                 res.send(err);
                 return;
             } else {
-                let session = await nodeFns.addSession(object.username, token, db);
+                let id = data2.insertId;
+                let session = await nodeFns.addSession(object.username, token, id, db);
                 output.status = "OK";
                 output.content = token
                 res.send(output)

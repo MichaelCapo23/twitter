@@ -1,9 +1,13 @@
 const moment = require('moment');
 const { response } = require('express');
 
-const auth = async  (token, db) => {
-    return Promise((resolve, reject) => {
-        let sql = "SELECT `expiration` FROM `session` WHERE `token` = ?";
+const auth = async (token, db) => {
+    return new Promise(async (resolve, reject)  => {
+        let sessionRows = await validIDSession(token, db);
+        if(!sessionRows) {
+            resolve(false);
+        }
+        let sql = "SELECT `account_id`, `expiration` FROM `session` WHERE `token` = ?";
         db.query(sql, token, (err, data) => {
             if(err) {
                 reject(err);
@@ -12,46 +16,17 @@ const auth = async  (token, db) => {
 
             let expiration = moment(data[0].expiration);
             let currentMoment = moment();
-            if(expiration > currentMoment) {
+
+            if(currentMoment > expiration) {
                 resolve(false);
             } else {
-                resolve(true);
+                resolve(data[0].account_id);
             }
         })
     })
 }
+module.exports.auth = auth;
 
-const getAccountInfo = (username, password, db) => {
-    return new Promise((resolve, reject) => {
-        let sql2 = "SELECT `username`, `phone`, `dob`, `bio`, `mention`, IFNULL((SELECT `token` FROM `session` WHERE `username` = ?), 'NONE') AS `token` FROM `accounts` WHERE `username` = ? AND `password` = ?";
-        let valuesArr = [username, username, password];
-        db.query(sql2, valuesArr, async (err, data) => {
-            if(err) {
-                console.log(err);
-                res.send(err);
-                return;
-            } else {
-                data[0].dob = moment(data[0].dob).format('YYYY-MM-DD');
-                let content = data[0];
-                //check if token is default value from query
-                // if(content.token === 'NONE') {
-                //     //create new token for user validation
-                //     let token = md5(moment() + object.password + object.username);
-                //     content.token = token;
-                //     //add new session of user
-                //     let session = await nodeFns.addSession(content.username, token, db)
-                // } else {
-                //     //update session of user
-                //     let session = await nodeFns.updateSession(content.token, db);
-                // }
-                // output.content = content;
-                // output.status = 'OK';
-                // res.send(output);
-            }
-        })
-    })
-}
-module.exports.getAccountInfo = getAccountInfo;
 
 const checkForUser = async (username, password, db) => {
     return new Promise((resolve, reject) => {
@@ -69,15 +44,15 @@ const checkForUser = async (username, password, db) => {
 module.exports.checkForUser = checkForUser
 
 
-const addSession = async (username, token, db) => {
+const addSession = async (username, token, id, db) => {
     return new Promise((resolve, reject) => {
         let output = {
             status: 'NO',
             content: 'Error add users',
         }
         let currentMoment = moment().add(3, 'hours').format('YYYY-MM-DD HH:mm:ss');
-        let valuesArr = [username, token, currentMoment]
-        let sql = "INSERT INTO `session` (`username`, `token`, `expiration`) VALUES (?,?,?)";
+        let valuesArr = [username, token, currentMoment, id]
+        let sql = "INSERT INTO `session` (`username`, `token`, `expiration`, `account_id`) VALUES (?,?,?,?)";
         db.query(sql, valuesArr, (err, data) => {
             if(err) {
                 reject(err)
@@ -87,7 +62,7 @@ const addSession = async (username, token, db) => {
                 resolve(output);
             }
         })
-        output.content = currentMoment;
+        output.content = currentMoment
         return output;
     })
 }
@@ -111,23 +86,23 @@ const updateSession = async (token, db) => {
 }
 module.exports.updateSession = updateSession
 
-function validID(table,col,id,db){
+const validIDSession = async (token,db) => {
     return new Promise((resolve, reject) => {
-        let sql = "SELECT COUNT(*) as 'count' FROM `?` WHERE `?` = '?'";
-        let valuesArr = [table, col, id];
-        db.query(sql, valuesArr, (err, data) => {
+        let sql = "SELECT COUNT(*) AS `count` FROM `session` WHERE `token` = ?";
+        let valuesArr = [token];
+        db.query(sql, valuesArr, (err, countData) => {
             if(err) {
-                reject(err)
-            } 
-
-            // let response = col+" Not found. Invalid "+table+" "+col;
-            let response = false;
-            if(data[0].count == 0) {
-                resolve(response);
+                console.log(err)
+                reject(err);
             } else {
-                response = true;
+                let response = false;
+                if(countData[0].count == 1) {
+                    response = true;
+                }
                 resolve(response);
             }
+           
         })
     })
 }
+module.exports.validIDSession = validIDSession
